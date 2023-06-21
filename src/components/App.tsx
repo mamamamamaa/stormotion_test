@@ -1,3 +1,9 @@
+import { MatchGame } from "./MatchGame.tsx";
+
 export const App = () => {
-  return <>Hellodasdasdsa</>;
+  return (
+    <>
+      <MatchGame />
+    </>
+  );
 };
