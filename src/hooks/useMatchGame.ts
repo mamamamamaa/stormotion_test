@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { MatchGameParams } from "../types/matchGame.ts";
 
-export const useMatchGame = ({ n, m }: MatchGameParams) => {
-  const [matchesRemaining, setMatchesRemaining] = useState<number>(2 * n + 1);
+export const useMatchGame = ({
+  totalNumber,
+  perMoveNumber,
+}: MatchGameParams) => {
+  const [matchesRemaining, setMatchesRemaining] = useState<number>(totalNumber);
   const [userMatches, setUserMatches] = useState<number>(0);
   const [aiMatches, setAiMatches] = useState<number>(0);
 
@@ -11,30 +14,32 @@ export const useMatchGame = ({ n, m }: MatchGameParams) => {
 
     if (matchesRemaining === 0) return;
 
-    if (matchesRemaining === m + 1) {
+    if (matchesRemaining === perMoveNumber + 1) {
       matches = 1;
-    } else if (matchesRemaining <= m) {
+    } else if (matchesRemaining <= perMoveNumber) {
       matches = matchesRemaining;
     } else {
-      const remainder = matchesRemaining % (m + 1);
-      matches = remainder === 0 ? 1 : m - remainder + 1;
+      const remainder = matchesRemaining % (perMoveNumber + 1);
+      matches = remainder === 0 ? 1 : perMoveNumber - remainder + 1;
     }
-
-    console.log(matches);
 
     setMatchesRemaining((prevState) => prevState - matches);
     setAiMatches((prevState) => prevState + matches);
   };
 
   const makeUserMove = (matches: number) => {
-    if (matches > 0 && matches <= m && matches <= matchesRemaining) {
+    if (
+      matches > 0 &&
+      matches <= perMoveNumber &&
+      matches <= matchesRemaining
+    ) {
       setMatchesRemaining((prevState) => prevState - matches);
       setUserMatches((prevState) => prevState + matches);
     }
   };
 
   const resetGame = () => {
-    setMatchesRemaining(2 * n + 1);
+    setMatchesRemaining(totalNumber);
     setAiMatches(0);
     setUserMatches(0);
   };

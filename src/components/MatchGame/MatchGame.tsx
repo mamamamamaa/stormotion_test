@@ -1,26 +1,29 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect } from "react";
 import { MatchButton } from "../MatchButton/MatchButton.tsx";
 import { MatchGameParams } from "../../types/matchGame.ts";
 import { useMatchGame } from "../../hooks/useMatchGame.ts";
 
-export const MatchGame: FC = () => {
-  const startData: MatchGameParams = {
-    n: 12,
-    m: 3,
-  };
+interface Props {
+  options: MatchGameParams;
+}
 
+export const MatchGame: FC<Props> = ({ options }) => {
   const matchesArray = Array.from(
-    { length: startData.m },
+    { length: options.perMoveNumber },
     (_, index) => index + 1
   );
 
   const { matchesRemaining, makeAIMove, makeUserMove, userMatches, aiMatches } =
-    useMatchGame(startData);
+    useMatchGame(options);
 
   const handleUserMove = (matches: number) => {
     makeUserMove(matches);
     makeAIMove();
   };
+
+  useEffect(() => {
+    if (options.firstMove === "AI") makeAIMove();
+  }, []);
 
   return (
     <div className="flex flex-col gap-10">

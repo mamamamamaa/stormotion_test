@@ -1,4 +1,7 @@
 export type MatchGameParams = {
-  n: number;
-  m: number;
+  totalNumber: number;
+  perMoveNumber: number;
+  firstMove: FirstMove;
 };
+
+export type FirstMove = "AI" | "USER";
