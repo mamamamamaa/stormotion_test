@@ -29,12 +29,7 @@ export const Modal: FC<Props> = ({ children, handleCloseModal }) => {
 
   return createPortal(
     <div className={style.backdrop} onClick={onBackdropClose}>
-      <section
-        onClick={(e) => e.stopPropagation()}
-        className={style.window + " dark:bg-secondary/800"}
-      >
-        {children}
-      </section>
+      <div className={style.window}>{children}</div>
     </div>,
     modalRoot
   );

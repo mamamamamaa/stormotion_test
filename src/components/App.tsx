@@ -1,9 +1,12 @@
 import { MatchGame } from "./MatchGame/MatchGame.tsx";
 import { useState } from "react";
 import { Modal } from "./Modal/Modal.tsx";
+import { GameRules } from "./GameRules/GameRules.tsx";
 
 export const App = () => {
-  const [a, setA] = useState<boolean>(false);
+  const [rulesState, setRulesState] = useState<boolean>(false);
+
+  const handleToggleModal = () => setRulesState((prevState) => !prevState);
 
   return (
     <>
@@ -12,7 +15,7 @@ export const App = () => {
           Welcome to Match Game
         </h1>
         <button
-          onClick={() => setA(true)}
+          onClick={handleToggleModal}
           type="button"
           className="block mx-auto font-normal border-b py-1 text-gray-500"
         >
@@ -20,9 +23,9 @@ export const App = () => {
         </button>
       </section>
 
-      {a && (
-        <Modal handleCloseModal={() => setA(false)}>
-          Hellloooooooooooooooooooooooooooooooo
+      {rulesState && (
+        <Modal handleCloseModal={handleToggleModal}>
+          <GameRules />
         </Modal>
       )}
       {/*<MatchGame />*/}
