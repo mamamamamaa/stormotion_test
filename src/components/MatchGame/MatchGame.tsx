@@ -2,12 +2,14 @@ import { FC, Fragment, useEffect } from "react";
 import { MatchButton } from "../MatchButton/MatchButton.tsx";
 import { MatchGameParams } from "../../types/matchGame.ts";
 import { useMatchGame } from "../../hooks/useMatchGame.ts";
+import toast from "react-hot-toast";
 
 interface Props {
   options: MatchGameParams;
+  handleEndGame: () => void;
 }
 
-export const MatchGame: FC<Props> = ({ options }) => {
+export const MatchGame: FC<Props> = ({ options, handleEndGame }) => {
   const matchesArray = Array.from(
     { length: options.perMoveNumber },
     (_, index) => index + 1
@@ -24,6 +26,15 @@ export const MatchGame: FC<Props> = ({ options }) => {
   useEffect(() => {
     if (options.firstMove === "AI") makeAIMove();
   }, []);
+
+  useEffect(() => {
+    if (matchesRemaining <= 0) {
+      if (userMatches % 2 === 0) toast("You win!!!", { icon: "🎉🎉🎉" });
+      else toast("The AI won.", { icon: "😓😓😓" });
+
+      handleEndGame();
+    }
+  }, [matchesRemaining]);
 
   return (
     <div className="flex flex-col gap-10">

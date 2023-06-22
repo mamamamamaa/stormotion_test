@@ -38,18 +38,11 @@ export const useMatchGame = ({
     }
   };
 
-  const resetGame = () => {
-    setMatchesRemaining(totalNumber);
-    setAiMatches(0);
-    setUserMatches(0);
-  };
-
   return {
     matchesRemaining,
     makeAIMove,
     makeUserMove,
     userMatches,
     aiMatches,
-    resetGame,
   };
 };

@@ -14,7 +14,7 @@ export const App = () => {
     useState<MatchGameParams>(initialGameOptions);
 
   const handleToggleModal = () => setRulesState((prevState) => !prevState);
-  const handleStartGame = () => setStartGame(true);
+  const handleToggleGame = () => setStartGame((prevState) => !prevState);
 
   return (
     <>
@@ -22,12 +22,14 @@ export const App = () => {
 
       {!startGame && (
         <GameOptions
-          handleStartGame={handleStartGame}
+          handleStartGame={handleToggleGame}
           setGameOptions={setGameOptions}
           initialGameOptions={gameOptions}
         />
       )}
-      {startGame && <MatchGame options={gameOptions} />}
+      {startGame && (
+        <MatchGame options={gameOptions} handleEndGame={handleToggleGame} />
+      )}
       {rulesState && (
         <Modal onClose={handleToggleModal}>
           <GameRules />
