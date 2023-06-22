@@ -4,28 +4,28 @@ import { createPortal } from "react-dom";
 
 interface Props {
   children: ReactNode;
-  handleCloseModal: () => void;
+  onClose: () => void;
 }
 
-export const Modal: FC<Props> = ({ children, handleCloseModal }) => {
+export const Modal: FC<Props> = ({ children, onClose }) => {
   const modalRoot = document.querySelector("#modal-root") as Element;
   const onBackdropClose: MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.currentTarget === event.target) {
-      handleCloseModal();
+      onClose();
     }
   };
 
   useEffect(() => {
     const onEscapeClose = (event: KeyboardEvent) => {
       if (event.code === "Escape") {
-        handleCloseModal();
+        onClose();
       }
     };
 
     window.addEventListener("keydown", onEscapeClose);
 
     return () => window.removeEventListener("keydown", onEscapeClose);
-  }, [handleCloseModal]);
+  }, [onClose]);
 
   return createPortal(
     <div className={style.backdrop} onClick={onBackdropClose}>
