@@ -1,0 +1,7 @@
+.backdrop {
+    @apply backdrop-blur-sm fixed top-0 z-10 left-0 w-screen h-screen;
+}
+
+.window {
+    @apply w-1/2 text-blue-800 rounded-xl bg-white dark:text-white p-5 absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4;
+}
