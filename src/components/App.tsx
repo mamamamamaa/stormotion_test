@@ -5,13 +5,13 @@ import { GameRules } from "./GameRules/GameRules.tsx";
 import { MatchGame } from "./MatchGame/MatchGame.tsx";
 import { GameOptions } from "./GameOptions/GameOptions.tsx";
 import { MatchGameParams } from "../types/matchGame.ts";
-import { initialGameOptions } from "./consts/gameSettings.ts";
+import { INITIAL_GAME_OPTIONS } from "../consts/gameSettings.ts";
 
 export const App = () => {
   const [startGame, setStartGame] = useState<boolean>(false);
   const [rulesState, setRulesState] = useState<boolean>(false);
   const [gameOptions, setGameOptions] =
-    useState<MatchGameParams>(initialGameOptions);
+    useState<MatchGameParams>(INITIAL_GAME_OPTIONS);
 
   const handleToggleModal = () => setRulesState((prevState) => !prevState);
   const handleToggleGame = () => setStartGame((prevState) => !prevState);
@@ -24,7 +24,6 @@ export const App = () => {
         <GameOptions
           handleStartGame={handleToggleGame}
           setGameOptions={setGameOptions}
-          initialGameOptions={gameOptions}
         />
       )}
       {startGame && (

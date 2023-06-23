@@ -1,4 +1,5 @@
 import { FC } from "react";
+import style from "./Hero.module.css";
 
 interface Props {
   openModal: () => void;
@@ -8,14 +9,8 @@ export const Hero: FC<Props> = ({ openModal }) => {
   return (
     <>
       <section>
-        <h1 className="text-center font-bold text-2xl">
-          Welcome to Match Game
-        </h1>
-        <button
-          onClick={openModal}
-          type="button"
-          className="block mx-auto font-normal border-b py-1 text-gray-500"
-        >
+        <h2 className={style.heroHeading}>Welcome to Match Game</h2>
+        <button onClick={openModal} type="button" className={style.rulesButton}>
           Rules
         </button>
       </section>

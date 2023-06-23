@@ -1,0 +1,3 @@
+.matchButton {
+  @apply py-2 px-4 text-white bg-blue-600 rounded-xl disabled:bg-gray-600;
+}

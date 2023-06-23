@@ -3,27 +3,32 @@ import style from "./GameOptions.module.css";
 import toast from "react-hot-toast";
 import { FirstMove, MatchGameParams } from "../../types/matchGame.ts";
 import { OptionRadioList } from "../OptionRadioList/OptionRadioList.tsx";
+import { OptionInputList } from "../OptionInputList/OptionInputList.tsx";
+import {
+  MATCHES_PER_MOVE_INPUT_NAME,
+  RADIO_NAME,
+  TOTAL_MATCHES_INPUT_NAME,
+} from "../../consts/gameSettings.ts";
 
 interface Props {
   handleStartGame: () => void;
   setGameOptions: (options: MatchGameParams) => void;
-  initialGameOptions: MatchGameParams;
 }
-export const GameOptions: FC<Props> = ({
-  setGameOptions,
-  handleStartGame,
-  initialGameOptions,
-}) => {
-  const { totalNumber, perMoveNumber } = initialGameOptions;
+export const GameOptions: FC<Props> = ({ setGameOptions, handleStartGame }) => {
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
 
-    const totalNumber = formData.get("total") && Number(formData.get("total"));
-    const firstMove = formData.get("first_move") as FirstMove;
+    const totalNumber =
+      formData.get(TOTAL_MATCHES_INPUT_NAME) &&
+      Number(formData.get(TOTAL_MATCHES_INPUT_NAME));
+
     const perMoveNumber =
-      formData.get("max_per_move") && Number(formData.get("max_per_move"));
+      formData.get(MATCHES_PER_MOVE_INPUT_NAME) &&
+      Number(formData.get(MATCHES_PER_MOVE_INPUT_NAME));
+
+    const firstMove = formData.get(RADIO_NAME) as FirstMove;
 
     if (!totalNumber || !perMoveNumber || !firstMove) {
       return toast.error("Invalid values");
@@ -50,38 +55,9 @@ export const GameOptions: FC<Props> = ({
   return (
     <>
       <form className={style.settingsForm} onSubmit={onSubmit}>
-        <div className={style.inputsBox}>
-          <div className={style.inputContainer}>
-            <label htmlFor="total-number-of-matches">
-              Total number of matches
-            </label>
-            <input
-              id="total-number-of-matches"
-              name="total"
-              type="number"
-              className={style.input}
-              defaultValue={totalNumber}
-              required
-            />
-          </div>
-          <div className={style.inputContainer}>
-            <label htmlFor="max-number-of-matches-per-move">
-              Number of matches per move
-            </label>
-            <input
-              id="max-number-of-matches-per-move"
-              name="max_per_move"
-              type="number"
-              className={style.input}
-              defaultValue={perMoveNumber}
-              required
-            />
-          </div>
-        </div>
-        <div>
-          <h3 className="mb-4 text-gray-900">Identification</h3>
-          <OptionRadioList />
-        </div>
+        <OptionInputList />
+
+        <OptionRadioList />
 
         <button className={style.submitButton}>Start game</button>
       </form>

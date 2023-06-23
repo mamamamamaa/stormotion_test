@@ -1,0 +1,6 @@
+.radioSectionHeading {
+  @apply mb-4 text-gray-900;
+}
+.radioList {
+  @apply items-center w-full text-sm px-5 gap-10 text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex;
+}

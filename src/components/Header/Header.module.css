@@ -1,0 +1,19 @@
+.header {
+    @apply flex justify-between py-5 drop-shadow-xl border-b;
+}
+
+.logo {
+    @apply font-bold text-lg hover:underline hover:text-blue-500;
+}
+
+.utilBox {
+    @apply flex items-center gap-10;
+}
+
+.scoreButton {
+    @apply hover:underline hover:text-blue-500
+}
+
+.ghLink {
+    @apply hover:underline hover:text-blue-500;
+}

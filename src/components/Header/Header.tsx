@@ -1,22 +1,20 @@
 import { FC } from "react";
+import style from "./Header.module.css";
+import { COMPANY_LINK, GITHUB_LINK } from "../../consts/gameSettings.ts";
 
 export const Header: FC = () => {
   return (
-    <header className="flex justify-between py-5 drop-shadow-xl border-b">
-      <h1 className="font-bold text-lg hover:underline hover:text-blue-500">
-        <a href="https://stormotion.io/" target="_blank">
+    <header className={style.header}>
+      <h1 className={style.logo}>
+        <a href={COMPANY_LINK} target="_blank">
           Stormotion Match Game💫
         </a>
       </h1>
-      <div className="flex items-center gap-10">
-        <button className="hover:underline hover:text-blue-500" type="button">
+      <div className={style.utilBox}>
+        <button className={style.scoreButton} type="button">
           Scores
         </button>
-        <a
-          className="hover:underline hover:text-blue-500"
-          href="https://github.com/mamamamamaa/stormotion_test"
-          target="_blank"
-        >
+        <a className={style.ghLink} href={GITHUB_LINK} target="_blank">
           GitHub🫣
         </a>
       </div>

@@ -1,0 +1,11 @@
+.matchesRemainingContainer {
+  @apply flex justify-center;
+}
+
+.matchesInfoContainer {
+  @apply flex justify-center gap-7 items-center;
+}
+
+.matchesInfo {
+  @apply px-4 py-2 rounded-xl border shadow-xl;
+}
