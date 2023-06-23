@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { MatchGameParams } from "../types/matchGame.ts";
+import { MatchGameParams, Players, Score } from "../types/matchGame.ts";
 import toast from "react-hot-toast";
 
 export const useMatchGame = (
-  { totalNumber, perMoveNumber, firstMove }: MatchGameParams,
-  handleEndGame: () => void
+  { totalMatches, matchesPerMove, firstMove }: MatchGameParams,
+  handleEndGame: () => void,
+  addScore: (score: Score) => void
 ) => {
   const [aiMatches, setAiMatches] = useState<number>(0);
   const [userMatches, setUserMatches] = useState<number>(0);
-  const [matchesRemaining, setMatchesRemaining] = useState<number>(totalNumber);
+  const [matchesRemaining, setMatchesRemaining] =
+    useState<number>(totalMatches);
   const [aiMadeMove, setAiMove] = useState<boolean>(firstMove === "USER");
 
   const makeAIMove = () => {
@@ -18,13 +20,13 @@ export const useMatchGame = (
 
     if (matchesRemaining === 0) return;
 
-    if (matchesRemaining === perMoveNumber + 1) {
+    if (matchesRemaining === matchesPerMove + 1) {
       matches = 1;
-    } else if (matchesRemaining <= perMoveNumber) {
+    } else if (matchesRemaining <= matchesPerMove) {
       matches = matchesRemaining;
     } else {
-      const remainder = matchesRemaining % (perMoveNumber + 1);
-      matches = remainder === 0 ? 1 : perMoveNumber - remainder + 1;
+      const remainder = matchesRemaining % (matchesPerMove + 1);
+      matches = remainder === 0 ? 1 : matchesPerMove - remainder + 1;
     }
 
     toast.promise(
@@ -48,7 +50,7 @@ export const useMatchGame = (
   const makeUserMove = (matches: number) => {
     if (
       matches > 0 &&
-      matches <= perMoveNumber &&
+      matches <= matchesPerMove &&
       matches <= matchesRemaining &&
       aiMadeMove
     ) {
@@ -59,9 +61,24 @@ export const useMatchGame = (
 
   useEffect(() => {
     if (matchesRemaining <= 0) {
-      if (userMatches % 2 === 0) toast("You win!!!", { icon: "🎉🎉🎉" });
-      else toast("The AI won.", { icon: "😓😓😓" });
+      let winner: Players;
 
+      if (userMatches % 2 === 0) {
+        winner = "USER";
+        toast("You win!!!", { icon: "🎉" });
+      } else {
+        winner = "AI";
+        toast("The AI won.", { icon: "😓" });
+      }
+
+      const score: Score = {
+        totalMatches,
+        matchesPerMove,
+        winner,
+        date: new Date(),
+      };
+
+      addScore(score);
       handleEndGame();
     }
   }, [matchesRemaining]);

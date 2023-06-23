@@ -1,14 +1,21 @@
 export interface MatchGameParams {
-  totalNumber: number;
-  perMoveNumber: number;
-  firstMove: FirstMove;
+  totalMatches: number;
+  matchesPerMove: number;
+  firstMove: Players;
 }
 
-export type FirstMove = "AI" | "USER";
+export type Players = "AI" | "USER";
 
 export interface InputOptions {
   id: string;
   name: string;
   defaultValue: number;
   label: string;
+}
+
+export interface Score {
+  winner: Players;
+  totalMatches: number;
+  matchesPerMove: number;
+  date: Date;
 }

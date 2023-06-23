@@ -1,7 +1,7 @@
 import { FC, FormEventHandler } from "react";
 import style from "./GameOptions.module.css";
 import toast from "react-hot-toast";
-import { FirstMove, MatchGameParams } from "../../types/matchGame.ts";
+import { Players, MatchGameParams } from "../../types/matchGame.ts";
 import { OptionRadioList } from "../OptionRadioList/OptionRadioList.tsx";
 import { OptionInputList } from "../OptionInputList/OptionInputList.tsx";
 import {
@@ -28,7 +28,7 @@ export const GameOptions: FC<Props> = ({ setGameOptions, handleStartGame }) => {
       formData.get(MATCHES_PER_MOVE_INPUT_NAME) &&
       Number(formData.get(MATCHES_PER_MOVE_INPUT_NAME));
 
-    const firstMove = formData.get(RADIO_NAME) as FirstMove;
+    const firstMove = formData.get(RADIO_NAME) as Players;
 
     if (!totalNumber || !perMoveNumber || !firstMove) {
       return toast.error("Invalid values");
@@ -48,7 +48,11 @@ export const GameOptions: FC<Props> = ({ setGameOptions, handleStartGame }) => {
       );
     }
 
-    setGameOptions({ totalNumber, perMoveNumber, firstMove });
+    setGameOptions({
+      totalMatches: totalNumber,
+      matchesPerMove: perMoveNumber,
+      firstMove,
+    });
     handleStartGame();
   };
 

@@ -6,8 +6,11 @@ import { MatchGame } from "./MatchGame/MatchGame.tsx";
 import { GameOptions } from "./GameOptions/GameOptions.tsx";
 import { MatchGameParams } from "../types/matchGame.ts";
 import { INITIAL_GAME_OPTIONS } from "../consts/gameSettings.ts";
+import { useScores } from "../hooks/useScores.ts";
 
 export const App = () => {
+  const { scores, addScore } = useScores();
+
   const [startGame, setStartGame] = useState<boolean>(false);
   const [rulesState, setRulesState] = useState<boolean>(false);
   const [gameOptions, setGameOptions] =
@@ -27,7 +30,11 @@ export const App = () => {
         />
       )}
       {startGame && (
-        <MatchGame options={gameOptions} handleEndGame={handleToggleGame} />
+        <MatchGame
+          options={gameOptions}
+          handleEndGame={handleToggleGame}
+          addScore={addScore}
+        />
       )}
       {rulesState && (
         <Modal onClose={handleToggleModal}>

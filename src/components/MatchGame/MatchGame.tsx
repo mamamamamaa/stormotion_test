@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { MatchGameParams } from "../../types/matchGame.ts";
+import { MatchGameParams, Score } from "../../types/matchGame.ts";
 import { useMatchGame } from "../../hooks/useMatchGame.ts";
 import { MatchButtonList } from "../MatchButtonList/MatchButtonList.tsx";
 import { MatchesGameData } from "../MatchesGameData/MatchesGameData.tsx";
@@ -8,11 +8,12 @@ import style from "./MatchGame.module.css";
 interface Props {
   options: MatchGameParams;
   handleEndGame: () => void;
+  addScore: (score: Score) => void;
 }
 
-export const MatchGame: FC<Props> = ({ options, handleEndGame }) => {
+export const MatchGame: FC<Props> = ({ options, handleEndGame, addScore }) => {
   const matchesArray = Array.from(
-    { length: options.perMoveNumber },
+    { length: options.matchesPerMove },
     (_, index) => index + 1
   );
 
@@ -23,7 +24,7 @@ export const MatchGame: FC<Props> = ({ options, handleEndGame }) => {
     userMatches,
     aiMatches,
     aiMadeMove,
-  } = useMatchGame(options, handleEndGame);
+  } = useMatchGame(options, handleEndGame, addScore);
 
   const handleUserMove = (matches: number) => {
     makeUserMove(matches);
