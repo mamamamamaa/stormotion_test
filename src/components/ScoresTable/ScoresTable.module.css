@@ -1,0 +1,3 @@
+.scoresTable {
+  @apply min-w-full divide-y divide-gray-200;
+}

@@ -5,12 +5,13 @@ import style from "./Layout.module.css";
 
 interface Props {
   children: ReactNode;
+  openScoresModal: () => void;
 }
 
-export const Layout: FC<Props> = ({ children }) => {
+export const Layout: FC<Props> = ({ children, openScoresModal }) => {
   return (
     <>
-      <Header />
+      <Header openScoresModal={openScoresModal} />
       <main className={style.mainContainer}>{children}</main>
       <Toaster position="top-center" reverseOrder={false} />
     </>

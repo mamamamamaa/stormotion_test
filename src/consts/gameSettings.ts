@@ -2,6 +2,13 @@ import { Players, InputOptions, MatchGameParams } from "../types/matchGame.ts";
 
 export const SCORES_KEY = "SCORES";
 
+export const SCORES_TABLE_HEADINGS = [
+  "Winner",
+  "Total Matches",
+  "Matches Per Move",
+  "Date",
+];
+
 export const COMPANY_LINK = "https://stormotion.io/";
 export const GITHUB_LINK = "https://github.com/mamamamamaa/stormotion_test";
 

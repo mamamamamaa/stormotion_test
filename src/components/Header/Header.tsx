@@ -2,7 +2,11 @@ import { FC } from "react";
 import style from "./Header.module.css";
 import { COMPANY_LINK, GITHUB_LINK } from "../../consts/gameSettings.ts";
 
-export const Header: FC = () => {
+interface Props {
+  openScoresModal: () => void;
+}
+
+export const Header: FC<Props> = ({ openScoresModal }) => {
   return (
     <header className={style.header}>
       <h1 className={style.logo}>
@@ -11,7 +15,11 @@ export const Header: FC = () => {
         </a>
       </h1>
       <div className={style.utilBox}>
-        <button className={style.scoreButton} type="button">
+        <button
+          className={style.scoreButton}
+          onClick={openScoresModal}
+          type="button"
+        >
           Scores
         </button>
         <a className={style.ghLink} href={GITHUB_LINK} target="_blank">
