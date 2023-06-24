@@ -19,15 +19,6 @@ export const useMatchGame = (
     let matches: number;
 
     if (matchesRemaining === 0) return;
-    //
-    // if (matchesRemaining === matchesPerMove + 1) {
-    //   matches = 1;
-    // } else if (matchesRemaining <= matchesPerMove) {
-    //   matches = matchesRemaining;
-    // } else {
-    //   const remainder = matchesRemaining % (matchesPerMove + 1);
-    //   matches = remainder === 0 ? 1 : matchesPerMove - remainder + 1;
-    // }
 
     if (matchesRemaining === matchesPerMove + 1) {
       matches = 1;
